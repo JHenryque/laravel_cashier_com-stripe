@@ -22,8 +22,10 @@ class MainController extends Controller
             auth()->login($user);
             return redirect()->route('plans');
         }
+        return $user;
     }
 
+    // criado no Stripe um catalogo de produto
     public function plans():View
     {
         return view('plans');
