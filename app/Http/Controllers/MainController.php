@@ -32,7 +32,7 @@ class MainController extends Controller
         $prices = [
             "monthly" => Crypt::encryptString(env('STRIPE_PRODUCT_ID') . "|" . env('STRIPE_MONTHLY_PRICE_ID')),
             "yearly" => Crypt::encryptString(env('STRIPE_PRODUCT_ID') . "|" . env('STRIPE_YEARLY_PRICE_ID')),
-            "longest" => Crypt::encryptString(env('STRIPE_PRODUCT_ID') . "|" . env('STRIPE_LONG_PRICE_ID')),
+            "longest" => Crypt::encryptString(env('STRIPE_PRODUCT_ID') . "|" . env('STRIPE_LONGEST_PRICE_ID')),
         ];
 
         return view('plans', compact('prices'));
@@ -46,11 +46,21 @@ class MainController extends Controller
             return redirect()->route('plans');
         }
 
-        $data = explode("|", $plan);
-        echo "Product ID: " . $data[0] . "<b>";
-        echo "Price: " . $data[1] . "<b>";
+        $plan = explode("|", $plan);
+        $product_id = $plan[0];
+        $price_id = $plan[1];
 
-        return $data;
+        return auth()->user()
+            ->newSubscription($product_id, $price_id)
+            ->checkout([
+                'success_url' => route('subscription.success'),
+                'cancel_url' => route('plans'),
+            ]);
+    }
+
+    public function subscriptionSuccess()
+    {
+        echo "subscription realizada com success!";
     }
 
     public function logout()
