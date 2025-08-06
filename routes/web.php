@@ -15,5 +15,6 @@ Route::middleware([isUser::class])->group(function () {
     Route::redirect('/', '/loign');
     Route::get('/logout', [MainController::class, 'logout'])->name('logout');
     Route::get('/plans', [MainController::class, 'plans'])->name('plans');
+    Route::get('/plans_selected/{id}', [MainController::class, 'planSelected'])->name('plans.selected');
 });
 
