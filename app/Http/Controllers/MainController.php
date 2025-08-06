@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\View\View;
@@ -60,7 +61,17 @@ class MainController extends Controller
 
     public function subscriptionSuccess()
     {
-        echo "subscription realizada com success!";
+
+        $data = Carbon::now();
+        $data->setTime(0, 1, 30);
+
+        if ($data == Carbon::now()) {
+            return redirect()->route('plans');
+        }
+
+        echo "subscription realizada com success! | $data";
+
+
     }
 
     public function logout()
