@@ -62,16 +62,23 @@ class MainController extends Controller
     public function subscriptionSuccess()
     {
 
-        $data = Carbon::now();
-        $data->setTime(0, 1, 30);
+//        $data = Carbon::now();
+//        $data->setTime(0, 1, 30);
+//
+//        if ($data == Carbon::now()) {
+//            return redirect()->route('plans');
+//        }
 
-        if ($data == Carbon::now()) {
-            return redirect()->route('plans');
-        }
+        echo "subscription realizada com success! ";
 
-        echo "subscription realizada com success! | $data";
+        sleep(60);
 
+        return redirect()->route('dashboard');
+    }
 
+    public function dashboard()
+    {
+        return view('dashboard');
     }
 
     public function logout()
