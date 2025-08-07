@@ -69,11 +69,7 @@ class MainController extends Controller
 //            return redirect()->route('plans');
 //        }
 
-        echo "subscription realizada com success! ";
-
-        sleep(60);
-
-        return redirect()->route('dashboard');
+        return view('subscription_success');
     }
 
     public function dashboard()

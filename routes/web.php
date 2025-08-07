@@ -21,10 +21,10 @@ Route::middleware([isUser::class])->group(function () {
     Route::middleware([noSubscription::class])->group(function () {
         Route::get('/plans', [MainController::class, 'plans'])->name('plans');
         Route::get('/plans_selected/{id}', [MainController::class, 'planSelected'])->name('plans.selected');
-        Route::get('subscription/success', [MainController::class, 'subscriptionSuccess'])->name('subscription.success');
     });
 
     Route::middleware([hasSubscription::class])->group(function () {
+        Route::get('subscription/success', [MainController::class, 'subscriptionSuccess'])->name('subscription.success');
         Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
     });
 });
