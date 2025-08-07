@@ -84,12 +84,22 @@ class MainController extends Controller
 
         // get invoices
         $invois = auth()->user()->invoices();
-
-        if (count($invois) > 0) {
-            $invois = auth()->user()->invoices()->first();
-        }
+        $data['invoices'] = $invois;
+//        if (count($invois) > 0) {
+//            $invois = auth()->user()->invoices()->first();
+//        }
 
         return view('dashboard', $data);
+    }
+
+    public function invoiceDownload($id)
+    {
+         //return auth()->user()->downloadInvoice($id);
+
+        return auth()->user()->downloadInvoice($id, [
+            'vendor' => 'Minha web (estudo)',
+            'product' => 'Laravel Cashier Plano subscrito (teste)',
+        ]);
     }
 
     public function logout()
