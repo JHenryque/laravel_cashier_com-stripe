@@ -74,7 +74,15 @@ class MainController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $data = [];
+
+        // check the expiration of sbscripition
+        $timespamp = auth()->user()->subscription(env('STRIPE_PRODUCT_ID'))
+            ->asStripeSubscription()->current_period_end;
+
+        $data['subscription_end'] = date('d/m/Y H:i:s', $timespamp);
+
+        return view('dashboard', $data);
     }
 
     public function logout()
